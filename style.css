@@ -1,0 +1,132 @@
+/* style.css — shared by the phone app and the projector screen.
+   Colours follow the Beamer deck: QU blue #004990, QU gold #CC9900. */
+:root {
+  --blue: #004990; --blue-2: #0a5cb0; --gold: #cc9900; --gold-soft: #fff4d6;
+  --ink: #14212e; --muted: #5d6b7a; --bg: #f4f6fa; --card: #ffffff;
+  --ok: #1f8a4c; --bad: #c0392b; --line: #dde3ec;
+  --opt-0: #004990; --opt-1: #cc9900; --opt-2: #1f8a4c; --opt-3: #8e3fa8;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; cursor: pointer; }
+.hidden { display: none !important; }
+
+/* ── phone ─────────────────────────────────────────────────────────────── */
+.phone { max-width: 560px; margin: 0 auto; min-height: 100%; display: flex; flex-direction: column; }
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px; background: var(--blue); color: #fff; font-weight: 600;
+  position: sticky; top: 0; z-index: 2;
+}
+.topbar .score { background: var(--gold); color: #1b1300; border-radius: 999px; padding: 4px 12px; font-variant-numeric: tabular-nums; }
+.screen { flex: 1; padding: 20px 16px 32px; display: flex; flex-direction: column; gap: 16px; }
+.center { text-align: center; justify-content: center; }
+h1 { font-size: 1.6rem; margin: 0; line-height: 1.25; }
+h2 { font-size: 1.3rem; margin: 0; line-height: 1.3; }
+.muted { color: var(--muted); }
+.big { font-size: 3rem; font-weight: 800; line-height: 1; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+
+input[type=text], input[type=number] {
+  width: 100%; font-size: 1.25rem; padding: 14px 16px; border-radius: 12px;
+  border: 2px solid var(--line); background: #fff; color: var(--ink);
+}
+input:focus { outline: none; border-color: var(--blue); }
+.btn {
+  border: 0; border-radius: 14px; padding: 16px 18px; font-size: 1.15rem; font-weight: 700;
+  background: var(--blue); color: #fff; width: 100%;
+}
+.btn:disabled { opacity: .5; }
+.btn.gold { background: var(--gold); color: #1b1300; }
+
+.options { display: grid; gap: 12px; }
+.opt {
+  display: flex; align-items: center; gap: 14px; text-align: left;
+  border: 0; border-radius: 16px; padding: 18px 16px; min-height: 68px;
+  color: #fff; font-size: 1.1rem; font-weight: 600; line-height: 1.3;
+  box-shadow: 0 2px 0 rgba(0,0,0,.15); transition: transform .08s;
+}
+.opt:active { transform: scale(.98); }
+.opt .letter {
+  flex: 0 0 36px; height: 36px; border-radius: 10px; background: rgba(255,255,255,.22);
+  display: grid; place-items: center; font-weight: 800;
+}
+.opt-0 { background: var(--opt-0); } .opt-1 { background: var(--opt-1); color: #1b1300; }
+.opt-2 { background: var(--opt-2); } .opt-3 { background: var(--opt-3); }
+
+.slider-wrap { display: flex; flex-direction: column; gap: 10px; }
+input[type=range] { width: 100%; height: 36px; accent-color: var(--blue); }
+.result-ok { color: var(--ok); } .result-bad { color: var(--bad); }
+.pill { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--gold-soft); color: #6b5000; font-weight: 700; }
+.tick { font-size: 4rem; }
+
+/* ── projector ─────────────────────────────────────────────────────────── */
+.stage { display: grid; grid-template-rows: auto 1fr auto; height: 100vh; }
+.stage-head {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  padding: 14px 28px; background: var(--blue); color: #fff; font-size: 1.1rem;
+}
+.stage-head .join-url { font-weight: 700; letter-spacing: .02em; }
+.stage-head .count { background: var(--gold); color: #1b1300; padding: 4px 14px; border-radius: 999px; font-weight: 800; }
+.stage-main { padding: 28px 48px; overflow: auto; display: flex; flex-direction: column; gap: 22px; }
+.stage-q { font-size: clamp(1.8rem, 3.4vw, 3rem); font-weight: 800; line-height: 1.2; margin: 0; }
+.stage-meta { color: var(--muted); font-size: 1.1rem; }
+.bars { display: grid; gap: 14px; }
+.bar-row { display: grid; grid-template-columns: minmax(200px, 34%) 1fr 90px; align-items: center; gap: 16px; font-size: 1.35rem; }
+.bar-label { display: flex; gap: 10px; align-items: center; font-weight: 600; }
+.bar-label .letter { flex: 0 0 34px; height: 34px; border-radius: 9px; display: grid; place-items: center; color: #fff; font-weight: 800; }
+.bar-track { height: 46px; background: #e8edf4; border-radius: 10px; overflow: hidden; }
+.bar-fill { height: 100%; width: 0; transition: width .6s ease; border-radius: 10px; }
+.bar-n { font-variant-numeric: tabular-nums; font-weight: 700; text-align: right; }
+.bar-row.correct .bar-label { color: var(--ok); }
+.bar-row.correct .bar-fill { outline: 4px solid var(--ok); }
+.bar-row.dim { opacity: .35; }
+.waiting { font-size: 1.5rem; color: var(--muted); }
+.timer { height: 10px; background: #e8edf4; border-radius: 999px; overflow: hidden; }
+.timer > div { height: 100%; background: var(--gold); width: 100%; transition: width 1s linear; }
+.answer-count { font-size: 5rem; font-weight: 900; color: var(--blue); line-height: 1; }
+
+.join-grid { display: grid; grid-template-columns: auto 1fr; gap: 48px; align-items: center; }
+.qr-box { background: #fff; padding: 18px; border-radius: 18px; border: 1px solid var(--line); }
+.qr-box canvas, .qr-box img { display: block; width: min(42vh, 440px) !important; height: auto !important; image-rendering: pixelated; }
+.names { display: flex; flex-wrap: wrap; gap: 10px; align-content: flex-start; }
+.name-chip { background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; font-size: 1.15rem; animation: pop .35s ease; }
+@keyframes pop { from { transform: scale(.5); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+.board { display: grid; gap: 10px; max-width: 900px; width: 100%; margin: 0 auto; }
+.board-row {
+  display: grid; grid-template-columns: 70px 1fr 140px; align-items: center;
+  background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 12px 18px;
+  font-size: 1.5rem; animation: pop .4s ease both;
+}
+.board-row .rk { font-weight: 900; color: var(--blue); }
+.board-row .pts { text-align: right; font-weight: 800; font-variant-numeric: tabular-nums; }
+.board-row.top1 { background: var(--gold-soft); border-color: var(--gold); }
+
+.hist { display: flex; align-items: flex-end; gap: 6px; height: 280px; padding: 0 4px; position: relative; }
+.hist .col { flex: 1; background: var(--blue-2); border-radius: 6px 6px 0 0; min-height: 2px; transition: height .6s; position: relative; }
+.hist .col span { position: absolute; top: -26px; left: 0; right: 0; text-align: center; font-weight: 700; }
+.hist-axis { display: flex; gap: 6px; padding: 0 4px; color: var(--muted); }
+.hist-axis div { flex: 1; text-align: center; font-size: .95rem; }
+.truth-line { position: absolute; top: -10px; bottom: 0; width: 4px; background: var(--ok); }
+.truth-line b { position: absolute; top: -34px; left: 8px; white-space: nowrap; color: var(--ok); background: #fff; padding: 2px 8px; border-radius: 8px; font-size: 1.2rem; }
+.mean-line { position: absolute; top: 20px; bottom: 0; width: 0; border-left: 4px dashed var(--gold); }
+.mean-line b { position: absolute; top: -4px; right: 8px; white-space: nowrap; color: #8a6800; background: #fff; padding: 2px 8px; border-radius: 8px; font-size: 1.2rem; }
+
+.controls {
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 16px;
+  background: #fff; border-top: 1px solid var(--line); font-size: .95rem;
+}
+.controls button { border: 1px solid var(--line); background: #fff; border-radius: 10px; padding: 8px 12px; }
+.controls button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+.controls button.warn { color: var(--bad); }
+.controls select { font: inherit; padding: 7px; border-radius: 10px; border: 1px solid var(--line); max-width: 360px; }
+.controls .spacer { flex: 1; }
+.controls kbd { font-size: .8rem; color: var(--muted); }
+body.clean .controls { opacity: 0; transition: opacity .2s; }
+body.clean .controls:hover { opacity: 1; }
+.banner { background: var(--gold-soft); color: #6b5000; padding: 8px 16px; font-weight: 600; text-align: center; }

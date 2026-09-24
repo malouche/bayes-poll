@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Bayes Seminar · Play</title>
+  <meta name="theme-color" content="#004990">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="phone">
+    <div class="topbar">
+      <span id="who">Bayes Seminar</span>
+      <span class="score" id="score">0 pts</span>
+    </div>
+    <div id="banner" class="banner hidden"></div>
+    <main class="screen center" id="app">
+      <p class="muted">Loading…</p>
+    </main>
+  </div>
+  <script type="module" src="app.js"></script>
+  <script>
+    // Service worker = offline shell + "Add to Home Screen". Failure is harmless.
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js").catch(() => {});
+  </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bayes Seminar · Presenter</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="style.css">
+  <!-- QR code generator (cdnjs). If it fails to load, the URL is still shown. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <div class="stage">
+    <header class="stage-head">
+      <span>Scan or go to <span class="join-url" id="joinUrl"></span></span>
+      <span id="phaseTag"></span>
+      <span class="count" id="count">0 players</span>
+    </header>
+    <main class="stage-main" id="main"><p class="waiting">Loading…</p></main>
+    <footer class="controls" id="controls">
+      <button id="bJoin">Join screen <kbd>J</kbd></button>
+      <select id="sel"></select>
+      <button id="bOpen" class="primary">Open <kbd>O</kbd></button>
+      <button id="bClose">Close <kbd>C</kbd></button>
+      <button id="bReveal" class="primary">Reveal <kbd>R</kbd></button>
+      <button id="bNext">Next ▸ <kbd>N</kbd></button>
+      <button id="bBoard">Leaderboard <kbd>L</kbd></button>
+      <span class="spacer"></span>
+      <span id="who" class="muted"></span>
+      <button id="bHide" title="Hide this bar until the mouse hovers it">Hide bar <kbd>H</kbd></button>
+      <button id="bFull">Full screen <kbd>F</kbd></button>
+      <button id="bReset" class="warn">Reset session…</button>
+    </footer>
+  </div>
+  <script type="module" src="presenter.js"></script>
+</body>
+</html>

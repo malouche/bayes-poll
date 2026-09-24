@@ -1,0 +1,26 @@
+{
+  "rules": {
+    "sessions": {
+      "$s": {
+        ".read": "auth != null",
+        ".write": "auth != null && auth.token.email == 'dfmalouche@gmail.com' && auth.token.email_verified == true",
+
+        "players": {
+          "$uid": {
+            ".write": "auth != null && auth.uid == $uid",
+            ".validate": "newData.hasChildren(['name', 'joined']) && newData.child('name').isString() && newData.child('name').val().length >= 1 && newData.child('name').val().length <= 20 && newData.child('joined').val() == now"
+          }
+        },
+
+        "answers": {
+          "$q": {
+            "$uid": {
+              ".write": "auth != null && auth.uid == $uid && !data.exists() && root.child('sessions').child($s).child('state/q').val() == $q && root.child('sessions').child($s).child('state/phase').val() == 'open' && root.child('sessions').child($s).child('players').child($uid).exists()",
+              ".validate": "newData.hasChildren(['v', 't']) && newData.child('v').isNumber() && newData.child('t').val() == now"
+            }
+          }
+        }
+      }
+    }
+  }
+}
