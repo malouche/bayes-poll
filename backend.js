@@ -78,7 +78,18 @@ async function firebaseBackend(s) {
       return () => offs.forEach((f) => f());
     },
 
-    join: (uid, name) => D.set(r(`players/${uid}`), { name, joined: D.serverTimestamp() }),
+    // If the first write is refused (seen once on iPhone: the database had not
+    // yet received the fresh sign-in token), renew the token and retry once.
+    async join(uid, name) {
+      const w = () => D.set(r(`players/${uid}`), { name, joined: D.serverTimestamp() });
+      try { await w(); }
+      catch (e) {
+        if (!/PERMISSION_DENIED/i.test(e.message) || !auth.currentUser) throw e;
+        await auth.currentUser.getIdToken(true);
+        await new Promise((res) => setTimeout(res, 800));
+        await w();
+      }
+    },
     answer: (uid, qid, v) => D.set(r(`answers/${qid}/${uid}`), { v, t: D.serverTimestamp() }),
 
     async open(qid, alreadyOpened) {

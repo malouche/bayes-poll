@@ -77,7 +77,12 @@ function renderJoin() {
     if (!name) { $n.focus(); return; }
     $go.disabled = true;
     try { await be.join(uid, name); }
-    catch (e) { $go.disabled = false; alert("Could not join: " + e.message); }
+    catch (e) {
+      $go.disabled = false;
+      $go.textContent = "Try again";
+      banner("Could not join. Check your internet, then tap Try again.");
+      console.error(e);
+    }
   };
   $go.onclick = go;
   $n.onkeydown = (e) => { if (e.key === "Enter") go(); };
