@@ -4,7 +4,7 @@
 //
 // While apiKey is empty, the app runs in local rehearsal mode automatically.
 export const FIREBASE_CONFIG = {
-  apiKey: "",   // ← paste from Firebase console › Project settings › Your apps › Config
+  apiKey: "AIzaSyDk74pPlbNcQPW7rIqnyY23SBQvzaI4T6w",
   authDomain: "bayes-poll.firebaseapp.com",
   databaseURL: "https://bayes-poll-default-rtdb.europe-west1.firebasedatabase.app",
   projectId: "bayes-poll",
